@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hallownest Guild Registry</title>
+    
+    <style>
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #090c10;
+            color: #f0f6fc;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+    
+        header {
+            background-color: #0d1117;
+            color: #ffffff;
+            text-align: center;
+            padding: 22px 15px;
+            border-bottom: 2px solid #38bdf8;
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #38bdf8;
+            margin-bottom: 6px;
+            font-variant: small-caps;
+            letter-spacing: 2px;
+        }
+
+        header p {
+            font-size: 0.95rem;
+            color: #8b949e;
+            font-style: italic;
+        }
+
+      
+        .container {
+            max-width: 1200px;
+            width: 92%;
+            margin: 25px auto;
+            flex: 1;
+        }
+
+      
+        .main-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.6fr;
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        @media (max-width: 900px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background-color: #161b22;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            border: 1px solid #30363d;
+        }
+
+        .card-title {
+            color: #7dd3fc;
+            font-size: 1.3rem;
+            font-weight: bold;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #30363d;
+        }
+
+   
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            font-size: 0.88rem;
+            color: #f0f6fc;
+            margin-bottom: 6px;
+            line-height: 1.5;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px 12px;
+            background-color: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            color: #f0f6fc;
+            outline: none;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #484f58;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            margin-top: 6px;
+        }
+
+        .radio-group label {
+            font-weight: normal;
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            color: #8b949e;
+        }
+
+        textarea {
+            resize: vertical;
+            height: 90px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 9px 20px;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.88rem;
+            cursor: pointer;
+        }
+
+        .btn-register {
+            background-color: #38bdf8;
+            color: #090c10;
+        }
+
+        .btn-clear {
+            background-color: #30363d;
+            color: #f0f6fc;
+        }
+
+       
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.88rem;
+        }
+
+        th {
+            background-color: #0d1117;
+            color: #38bdf8;
+            text-align: left;
+            padding: 12px;
+            font-weight: bold;
+            border-bottom: 2px solid #30363d;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #30363d;
+            color: #f0f6fc;
+            line-height: 1.5;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+   
+        .badge {
+            display: inline-block;
+            padding: 3px 12px;
+            border-radius: 12px;
+            font-size: 0.78rem;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .badge-active {
+            background-color: rgba(16, 185, 129, 0.2);
+            color: rgb(52, 211, 153);
+            border: 1px solid #059669;
+        }
+
+        .badge-radiant {
+            background-color: rgba(251, 191, 36, 0.2);
+            color: rgb(251, 191, 36);
+            border: 1px solid #d97706;
+        }
+
+        .badge-void {
+            background-color: rgba(139, 92, 246, 0.2);
+            color: rgb(167, 139, 250);
+            border: 1px solid #6d28d9;
+        }
+
+  
+        .info-box {
+            background-color: #161b22;
+            border-left: 5px solid #38bdf8;
+            border-radius: 4px;
+            padding: 20px 24px;
+            border-top: 1px solid #30363d;
+            border-right: 1px solid #30363d;
+            border-bottom: 1px solid #30363d;
+        }
+
+        .info-box h3 {
+            color: #38bdf8;
+            font-size: 1.15rem;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        .info-box p {
+            font-size: 0.88rem;
+            color: #8b949e;
+            text-align: justify;
+            line-height: 1.5;
+        }
+
+  
+        footer {
+            background-color: #0d1117;
+            color: #8b949e;
+            text-align: center;
+            padding: 16px;
+            font-size: 0.9rem;
+            margin-top: 30px;
+            border-top: 1px solid #30363d;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Hallownest University Registry</h1>
+        <p>Official Student Record of the Pale King's Academy</p>
+    </header>
+
+   
+    <div class="container">
+        
+        <div class="main-layout">
+            
+            
+            <div class="card">
+                <h2 class="card-title">Student Registration</h2>
+                <form action="#" method="post">
+                    
+                    <div class="form-group">
+                        <label for="fullname">Full Name:</label>
+                        <input type="text" id="fullname" name="fullname" placeholder="Enter student name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" placeholder="student@hallownest.edu" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="studentid">Student ID:</label>
+                        <input type="text" id="studentid" name="studentid" placeholder="HLN-000" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="course">Course / Degree Program:</label>
+                        <select id="course" name="course" required>
+                            <option value="" disabled selected>-- Select Course --</option>
+                            <option value="BS Nailmaster Arts">BS Nailmaster Arts</option>
+                            <option value="BS Soul Sanctum Studies">BS Soul Sanctum Studies</option>
+                            <option value="BS Mantis Combat">BS Mantis Combat</option>
+                            <option value="BS Cartography">BS Cartography</option>
+                            <option value="BS Vessel Ethics">BS Vessel Ethics</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Gender:</label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="gender" value="Male" required> Male</label>
+                            <label><input type="radio" name="gender" value="Female"> Female</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Messsage:</label>
+                        <textarea id="message" name="message" placeholder="Declare your academic purpose..."></textarea>
+                    </div>
+
+                    <div class="button-group">
+                        <button type="submit" class="btn btn-register">Register</button>
+                        <button type="reset" class="btn btn-clear">Clear</button>
+                    </div>
+
+                </form>
+            </div>
+
+        
+            <div class="card">
+                <h2 class="card-title">Registered Students</h2>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Student ID</th>
+                                <th>Full Name</th>
+                                <th>Course</th>
+                                <th>Email</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>HLN-001</td>
+                                <td>The Knight</td>
+                                <td>BS Vessel Ethics</td>
+                                <td>ghost@hallownest.edu</td>
+                                <td><span class="badge badge-active">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>HLN-002</td>
+                                <td>Hornet</td>
+                                <td>BS Mantis Combat</td>
+                                <td>hornet@pharloom.edu</td>
+                                <td><span class="badge badge-active">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>HLN-003</td>
+                                <td>Quirrel</td>
+                                <td>BS Soul Sanctum Studies</td>
+                                <td>quirrel@archives.edu</td>
+                                <td><span class="badge badge-active">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>HLN-004</td>
+                                <td>Zote the Mighty</td>
+                                <td>BS Nailmaster Arts</td>
+                                <td>zote@precepts.edu</td>
+                                <td><span class="badge badge-radiant">Pending</span></td>
+                            </tr>
+                            <tr>
+                                <td>HLN-005</td>
+                                <td>Cloth</td>
+                                <td>BS Mantis Combat</td>
+                                <td>cloth@farthest.edu</td>
+                                <td><span class="badge badge-active">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>HLN-006</td>
+                                <td>Cornifer</td>
+                                <td>BS Cartography</td>
+                                <td>cornifer@maps.edu</td>
+                                <td><span class="badge badge-active">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>HLN-007</td>
+                                <td>Sly</td>
+                                <td>BS Nailmaster Arts</td>
+                                <td>sly@dirtmouth.edu</td>
+                                <td><span class="badge badge-radiant">Pending</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+    
+        <div class="info-box">
+            <h3>University Enrollment Notice</h3>
+            <p>Ensure all Student IDs and Course selections are recorded accurately before the start of term. Unenrolled students are subject to academic clearance protocols by royal decree of the Academy Dean.</p>
+        </div>
+
+    </div>
+
+  
+    <footer>
+        <p>Raviel Alano / II-CS-4</p>
+    </footer>
+
+</body>
+</html>
